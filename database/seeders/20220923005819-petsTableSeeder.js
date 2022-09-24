@@ -15,7 +15,7 @@ module.exports = {
           cat_code:"cat001",
           description:"cat",
           additional_info:"good cat",
-          
+          user_id : 1,
           created_at: new Date(),
           updated_at: new Date(),
         },

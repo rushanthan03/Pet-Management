@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
     deletedAt: 'deleted_at',
   })
   User.associate = function (models) {
-    // associations can be defined here
+    User.hasMany(models.pets, { foreignKey: 'user_id', as: 'pets'})
   };
   
   return User;

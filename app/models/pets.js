@@ -25,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
     deletedAt: 'deleted_at',
   })
   pets.associate = function (models) {
-    // associations can be defined here
+    pets.belongsTo(models.User, { foreignKey: 'user_id', as: 'users' })
   };
   return pets;
 };
