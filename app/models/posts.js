@@ -3,7 +3,10 @@ module.exports = (sequelize, DataTypes) => {
   const posts = sequelize.define(
     "posts",
     {
-      categroy: DataTypes.STRING,
+      tittle: DataTypes.STRING,
+      image: DataTypes.STRING,
+      description: DataTypes.STRING,
+      post_type: DataTypes.STRING
     },
     {
       sequelize,

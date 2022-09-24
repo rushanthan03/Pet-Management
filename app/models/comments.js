@@ -3,7 +3,7 @@ module.exports = (sequelize, DataTypes) => {
   const comments = sequelize.define(
     "comments",
     {
-      categroy: DataTypes.STRING,
+      comment: DataTypes.STRING,
     },
     {
       sequelize,
