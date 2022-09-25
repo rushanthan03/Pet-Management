@@ -21,6 +21,21 @@ module.exports = {
         type: Sequelize.ENUM("Active", "Deactive"),
         defaultValue: "Active",
       },
+      user_id: {
+        type: Sequelize.INTEGER,
+        references: { model: 'users', key: 'id' },
+        onDelete: 'CASCADE',
+      },
+      pets_id: {
+        type: Sequelize.INTEGER,
+        references: { model: 'pets', key: 'id' },
+        onDelete: 'CASCADE',
+      },
+      // comments_id: {
+      //   type: Sequelize.INTEGER,
+      //   references: { model: 'comments', key: 'id' },
+      //   onDelete: 'CASCADE',
+      // },
       created_at: {
         type: Sequelize.DATE,
         allowNull: false,

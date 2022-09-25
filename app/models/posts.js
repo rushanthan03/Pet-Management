@@ -21,7 +21,10 @@ module.exports = (sequelize, DataTypes) => {
     }
   );
   posts.associate = function (models) {
-    // associations can be defined here
+    posts.belongsTo(models.User, { foreignKey: 'user_id', as: 'users' })
+    posts.belongsTo(models.pets, { foreignKey: 'pets_id', as: 'pets' })
+    posts.hasMany(models.comments, { foreignKey: 'comments_id', as: 'comments' })
+
   };
   return posts;
 };

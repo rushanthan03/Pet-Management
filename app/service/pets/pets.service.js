@@ -36,6 +36,8 @@ exports.getAll = (page, itemPerPage, query, status) =>
       "additional_info",
       "status",
       "transfer_status",
+      "user_id",
+      "categories_id"
     ];
     let responce = await BaseService.paginate(
       pets,
@@ -77,6 +79,8 @@ exports.show = (model) =>
       "additional_info",
       "status",
       "transfer_status",
+      "user_id",
+      "categories_id"
     ];
     let responce = await BaseService.show(pets, model, log, attributes);
     resolve(responce);

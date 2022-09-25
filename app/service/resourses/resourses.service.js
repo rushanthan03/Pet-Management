@@ -29,6 +29,10 @@ exports.getAll = (page, itemPerPage, query, status) =>
       'tittle',
       'image',
       'description',
+      "user_id",
+      "pets_id"
+
+
     ];
     let responce = await BaseService.paginate(
       resourses,
@@ -62,6 +66,9 @@ exports.show = (model) =>
       'tittle',
       'image',
       'description',
+      "user_id",
+      "pets_id"
+
     ];
     let responce = await BaseService.show(resourses, model, log, attributes);
     resolve(responce);

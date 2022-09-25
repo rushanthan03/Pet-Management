@@ -20,7 +20,9 @@ module.exports = (sequelize, DataTypes) => {
     }
   );
   resourses.associate = function (models) {
-    // associations can be defined here
+    resourses.belongsTo(models.User, { foreignKey: 'user_id', as: 'users' })
+    resourses.belongsTo(models.pets, { foreignKey: 'pets_id', as: 'pets' })
+
   };
   return resourses;
 };

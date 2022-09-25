@@ -13,6 +13,8 @@ const createRequest = Joi.object({
   additional_info: Joi.string(),
   status: Joi.string(),
   transfer_status: Joi.string(),
+  user_id: Joi.number(),
+  categories_id: Joi.number(),
 }).options({ abortEarly: false });
 
 const updateRequest = Joi.object({
@@ -26,7 +28,11 @@ const updateRequest = Joi.object({
   description: Joi.string().required(),
   additional_info: Joi.string(),
   status: Joi.string(),
-  transfer_status: Joi.string(),}).options({ abortEarly: false });
+  transfer_status: Joi.string(),
+  user_id: Joi.number(),
+  categories_id: Joi.number(),
+
+}).options({ abortEarly: false });
 
 module.exports.createRequest = createRequest;
 module.exports.updateRequest = updateRequest;

@@ -16,6 +16,7 @@ module.exports = {
           description:"cat",
           additional_info:"good cat",
           user_id : 1,
+          categories_id: 1,
           created_at: new Date(),
           updated_at: new Date(),
         },

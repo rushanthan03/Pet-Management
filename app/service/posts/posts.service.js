@@ -29,7 +29,11 @@ exports.getAll = (page, itemPerPage, query, status) =>
       'tittle',
       'image',
       'description',
-      'post_type'
+      'post_type',
+      "user_id",
+      "pets_id",
+      "comments_id"
+
     ];
     let responce = await BaseService.paginate(
       posts,
@@ -63,7 +67,11 @@ exports.show = (model) =>
       'tittle',
       'image',
       'description',
-      'post_type'
+      'post_type',
+      "user_id",
+      "pets_id",
+      "comments_id"
+
     ];
     let responce = await BaseService.show(posts, model, log, attributes);
     resolve(responce);

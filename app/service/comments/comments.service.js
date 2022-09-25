@@ -27,6 +27,9 @@ exports.getAll = (page, itemPerPage, query, status) =>
     let attributes = [
       'id',
       'comment',
+      "user_id",
+      "posts_id",
+
     ];
     let responce = await BaseService.paginate(
       comments,
@@ -58,6 +61,9 @@ exports.show = (model) =>
     let attributes = [
       'id',
       'comment',
+      "user_id",
+      "posts_id",
+
     ];
     let responce = await BaseService.show(comments, model, log, attributes);
     resolve(responce);

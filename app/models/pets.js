@@ -26,6 +26,8 @@ module.exports = (sequelize, DataTypes) => {
   })
   pets.associate = function (models) {
     pets.belongsTo(models.User, { foreignKey: 'user_id', as: 'users' })
+    pets.belongsTo(models.categories, { foreignKey: 'categories_id', as: 'categories' })
+
   };
   return pets;
 };

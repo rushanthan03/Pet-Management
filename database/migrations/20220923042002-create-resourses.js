@@ -17,6 +17,16 @@ module.exports = {
       description: {
         type: Sequelize.STRING,
       },
+      user_id: {
+        type: Sequelize.INTEGER,
+        references: { model: 'users', key: 'id' },
+        onDelete: 'CASCADE',
+      },
+      pets_id: {
+        type: Sequelize.INTEGER,
+        references: { model: 'pets', key: 'id' },
+        onDelete: 'CASCADE',
+      },
       created_at: {
         type: Sequelize.DATE,
         allowNull: false,

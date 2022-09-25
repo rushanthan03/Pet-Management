@@ -11,6 +11,16 @@ module.exports = {
       comment: {
         type: Sequelize.STRING
       },
+      user_id: {
+        type: Sequelize.INTEGER,
+        references: { model: 'users', key: 'id' },
+        onDelete: 'CASCADE',
+      },
+      posts_id: {
+        type: Sequelize.INTEGER,
+        references: { model: 'posts', key: 'id' },
+        onDelete: 'CASCADE',
+      },
       created_at: {
         type: Sequelize.DATE,
         allowNull: false,
