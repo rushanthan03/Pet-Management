@@ -20,13 +20,6 @@ module.exports = {
       },
       image: {
         type: Sequelize.STRING,
-        get() {
-          const img = this.getDataValue("image");
-          if (img != null) {
-            const image = `${env.appUrl}/${imagePath}/${img}`;
-            return image;
-          }
-        },
       },
       weight: {
         type: Sequelize.DECIMAL(10, 2),

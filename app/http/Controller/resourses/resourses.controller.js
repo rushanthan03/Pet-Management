@@ -73,3 +73,7 @@ exports.search = async (req, res) => {
     .then((data) => response.successWithData(res, data))
     .catch((err) => catchError(res, err, log));
 };
+
+exports.imageUpload = async (req, res) => service.imageUpload(req.params.id, req.files)
+    .then(data => response.successWithData(res, data))
+    .catch(err => catchError(res, err, log));

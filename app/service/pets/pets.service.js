@@ -141,34 +141,34 @@ exports.delete = (id) =>
  * @param data
  * @returns {Promise<unknown>}
  */
-// exports.imageUpload = (id, data) => new Promise(async (resolve, reject) => {
-//   if (!id) reject(new Error(`id can't be empty`));
-//   let file;
-//   let value;
+exports.imageUpload = (id, data) => new Promise(async (resolve, reject) => {
+  if (!id) reject(new Error(`id can't be empty`));
+  let file;
+  let value;
 
-//   if (data == null) file = null
-//   else file = data.image
+  if (data == null) file = null
+  else file = data.image
 
-//   if (file != null) {
-//     let extension = path.extname(file.name);
-//     if (extension == "") extension = ".jpg";
-//     let fileName = `${id}${extension}`;
-//     let filePath = path.join(`${imagePath}/${fileName}`);
+  if (file != null) {
+    let extension = path.extname(file.name);
+    if (extension == "") extension = ".jpg";
+    let fileName = `${id}${extension}`;
+    let filePath = path.join(`${imagePath}/${fileName}`);
 
-//     if ((await fs.existsSync(imagePath)) === false) {
-//       await fs.mkdirSync(imagePath, { recursive: true }, (err) => {
-//         if (err) throw err;
-//       });
-//     }
+    if ((await fs.existsSync(imagePath)) === false) {
+      await fs.mkdirSync(imagePath, { recursive: true }, (err) => {
+        if (err) throw err;
+      });
+    }
 
-//     await file.mv(filePath);
-//     value = fileName
-//   }else {
-//     value = null
-//   }
+    await file.mv(filePath);
+    value = fileName
+  }else {
+    value = null
+  }
 
-// Product.update({ image: value,}, { where: { id: id } }, { individualHooks: true })
-//   .then( resolve("Pet Image Successfully added."))
-//   .catch((err) => { log.error(err); reject(err)});
+pets.update({ image: value,}, { where: { id: id } }, { individualHooks: true })
+  .then( resolve("Pet Image Successfully added."))
+  .catch((err) => { log.error(err); reject(err)});
 
-// });
+});

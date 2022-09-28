@@ -1,12 +1,23 @@
+const imagePath = "posts";
+
 "use strict";
 module.exports = (sequelize, DataTypes) => {
   const posts = sequelize.define(
     "posts",
     {
       tittle: DataTypes.STRING,
-      image: DataTypes.STRING,
+      image: {
+        type: DataTypes.STRING,
+        get() {
+          const img = this.getDataValue("image");
+          if (img != null) {
+            const image = `${env.appUrl}/${imagePath}/${img}`;
+            return image;
+          }
+        },
+      },
       description: DataTypes.STRING,
-      post_type: DataTypes.STRING
+      post_type: DataTypes.STRING,
     },
     {
       sequelize,
@@ -21,10 +32,12 @@ module.exports = (sequelize, DataTypes) => {
     }
   );
   posts.associate = function (models) {
-    posts.belongsTo(models.User, { foreignKey: 'user_id', as: 'users' })
-    posts.belongsTo(models.pets, { foreignKey: 'pets_id', as: 'pets' })
-    posts.hasMany(models.comments, { foreignKey: 'comments_id', as: 'comments' })
-
+    posts.belongsTo(models.User, { foreignKey: "user_id", as: "users" });
+    posts.belongsTo(models.pets, { foreignKey: "pets_id", as: "pets" });
+    posts.hasMany(models.comments, {
+      foreignKey: "comments_id",
+      as: "comments",
+    });
   };
   return posts;
 };

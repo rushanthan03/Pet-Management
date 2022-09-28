@@ -19,9 +19,7 @@ router
   .get(validateToken(), petsController.getAll)
   .post(validateBodyWithToken(createRequest), petsController.create);
 
-// router
-//   .route("/imageUpload/:id")
-//   .post(validateBodyWithToken(createRequest), petsController.imageUpload);
+router.post('/:id/image-upload',validateToken(), petsController.imageUpload); 
 
 router
   .route("/:id")

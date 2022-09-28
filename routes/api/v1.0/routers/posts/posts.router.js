@@ -13,6 +13,7 @@ const {
 } = require('../../../../../app/http/validator/posts/posts.validator');
 
 router.get('/search', validateToken(), postsController.search);
+router.post('/:id/image-upload',validateToken(), postsController.imageUpload); 
 
 router
   .route('/')

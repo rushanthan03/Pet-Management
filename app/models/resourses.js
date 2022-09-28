@@ -1,10 +1,21 @@
-"use strict";
+const imagePath = "resourses";
+
+("use strict");
 module.exports = (sequelize, DataTypes) => {
   const resourses = sequelize.define(
     "resourses",
     {
       tittle: DataTypes.STRING,
-      image: DataTypes.STRING,
+      image: {
+        type: DataTypes.STRING,
+        get() {
+          const img = this.getDataValue("image");
+          if (img != null) {
+            const image = `${env.appUrl}/${imagePath}/${img}`;
+            return image;
+          }
+        },
+      },
       description: DataTypes.STRING,
     },
     {
@@ -20,9 +31,8 @@ module.exports = (sequelize, DataTypes) => {
     }
   );
   resourses.associate = function (models) {
-    resourses.belongsTo(models.User, { foreignKey: 'user_id', as: 'users' })
-    resourses.belongsTo(models.pets, { foreignKey: 'pets_id', as: 'pets' })
-
+    resourses.belongsTo(models.User, { foreignKey: "user_id", as: "users" });
+    resourses.belongsTo(models.pets, { foreignKey: "pets_id", as: "pets" });
   };
   return resourses;
 };
