@@ -5,12 +5,16 @@ const createRequest = Joi.object({
   tittle: Joi.string().required(),
   image: Joi.string(),
   description: Joi.string(),
+  user_id: Joi.number().required(),
+  pets_id: Joi.number().required(),
 }).options({ abortEarly: false });
 
 const updateRequest = Joi.object({
   tittle: Joi.string().required(),
   image: Joi.string(),
   description: Joi.string(),
+  user_id: Joi.number().required(),
+  pets_id: Joi.number().required(),
 }).options({ abortEarly: false });
 
 

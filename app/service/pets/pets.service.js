@@ -1,4 +1,4 @@
-const { pets } = require("../../models");
+const { pets, User, categories } = require("../../models");
 
 const BaseService = require("../base.service");
 
@@ -37,7 +37,19 @@ exports.getAll = (page, itemPerPage, query, status) =>
       "status",
       "transfer_status",
       "user_id",
-      "categories_id"
+      "categories_id",
+    ];
+    include = [
+      {
+        model: User,
+        as: "users",
+        attributes: ["id", "name", "email"],
+      },
+      {
+        model: categories,
+        as: "categories",
+        attributes: ["id","categroy"],
+      },
     ];
     let responce = await BaseService.paginate(
       pets,
@@ -45,7 +57,8 @@ exports.getAll = (page, itemPerPage, query, status) =>
       itemPerPage,
       log,
       condition,
-      attributes
+      attributes,include
+      
     );
     resolve(responce);
   });
@@ -80,9 +93,21 @@ exports.show = (model) =>
       "status",
       "transfer_status",
       "user_id",
-      "categories_id"
+      "categories_id",
     ];
-    let responce = await BaseService.show(pets, model, log, attributes);
+    include = [
+      {
+        model: User,
+        as: "users",
+        attributes: ["id", "name", "email"],
+      },
+      {
+        model: categories,
+        as: "categories",
+        attributes: ["id", "categroy"],
+      },
+    ];
+    let responce = await BaseService.show(pets, model, log, attributes, include);
     resolve(responce);
   });
 
@@ -109,3 +134,41 @@ exports.delete = (id) =>
     let responce = await BaseService.delete(pets, id, log);
     resolve(responce);
   });
+
+  /**
+ *
+ * @param id
+ * @param data
+ * @returns {Promise<unknown>}
+ */
+// exports.imageUpload = (id, data) => new Promise(async (resolve, reject) => {
+//   if (!id) reject(new Error(`id can't be empty`));
+//   let file;
+//   let value;
+
+//   if (data == null) file = null
+//   else file = data.image
+
+//   if (file != null) {
+//     let extension = path.extname(file.name);
+//     if (extension == "") extension = ".jpg";
+//     let fileName = `${id}${extension}`;
+//     let filePath = path.join(`${imagePath}/${fileName}`);
+
+//     if ((await fs.existsSync(imagePath)) === false) {
+//       await fs.mkdirSync(imagePath, { recursive: true }, (err) => {
+//         if (err) throw err;
+//       });
+//     }
+
+//     await file.mv(filePath);
+//     value = fileName
+//   }else {
+//     value = null
+//   }
+
+// Product.update({ image: value,}, { where: { id: id } }, { individualHooks: true })
+//   .then( resolve("Pet Image Successfully added."))
+//   .catch((err) => { log.error(err); reject(err)});
+
+// });

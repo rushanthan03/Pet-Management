@@ -1,7 +1,7 @@
-'use strict';
+"use strict";
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('pets', {
+    await queryInterface.createTable("pets", {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -12,14 +12,21 @@ module.exports = {
         type: Sequelize.STRING,
       },
       gender: {
-        type: Sequelize.ENUM('Male', 'Female'),
-        defaultValue: 'Male',
+        type: Sequelize.ENUM("Male", "Female"),
+        defaultValue: "Male",
       },
       age: {
         type: Sequelize.INTEGER,
       },
       image: {
         type: Sequelize.STRING,
+        get() {
+          const img = this.getDataValue("image");
+          if (img != null) {
+            const image = `${env.appUrl}/${imagePath}/${img}`;
+            return image;
+          }
+        },
       },
       weight: {
         type: Sequelize.DECIMAL(10, 2),
@@ -38,24 +45,24 @@ module.exports = {
         type: Sequelize.STRING,
       },
       status: {
-        type: Sequelize.ENUM('Active', 'Deactive'),
-        defaultValue: 'Active',
+        type: Sequelize.ENUM("Active", "Deactive"),
+        defaultValue: "Active",
       },
       transfer_status: {
-        type: Sequelize.ENUM('True', 'False'),
-        defaultValue: 'True',
+        type: Sequelize.ENUM("True", "False"),
+        defaultValue: "True",
       },
 
       user_id: {
         type: Sequelize.INTEGER,
-        references: { model: 'users', key: 'id' },
-        onDelete: 'CASCADE',
+        references: { model: "users", key: "id" },
+        onDelete: "CASCADE",
       },
 
       categories_id: {
         type: Sequelize.INTEGER,
-        references: { model: 'categories', key: 'id' },
-        onDelete: 'CASCADE',
+        references: { model: "categories", key: "id" },
+        onDelete: "CASCADE",
       },
 
       created_at: {
@@ -72,6 +79,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('pets');
+    await queryInterface.dropTable("pets");
   },
 };

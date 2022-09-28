@@ -1,4 +1,4 @@
-const { resourses } = require('../../models');
+const { resourses, User, pets } = require('../../models');
 
 const BaseService = require('../base.service');
 
@@ -34,13 +34,24 @@ exports.getAll = (page, itemPerPage, query, status) =>
 
 
     ];
+    include = [
+      {
+        model: User,
+        as: "users",
+        attributes: ["id", "name", "email"],
+      },
+      {
+        model: pets,
+        as: "pets",
+      },
+    ];
     let responce = await BaseService.paginate(
       resourses,
       page,
       itemPerPage,
       log,
       condition,
-      attributes
+      attributes,include
     );
     resolve(responce);
   });
@@ -70,7 +81,18 @@ exports.show = (model) =>
       "pets_id"
 
     ];
-    let responce = await BaseService.show(resourses, model, log, attributes);
+    include = [
+      {
+        model: User,
+        as: "users",
+        attributes: ["id", "name", "email"],
+      },
+      {
+        model: pets,
+        as: "pets",
+      },
+    ];
+    let responce = await BaseService.show(resourses, model, log, attributes,include);
     resolve(responce);
   });
 

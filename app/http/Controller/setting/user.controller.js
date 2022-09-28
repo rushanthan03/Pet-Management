@@ -23,12 +23,20 @@ exports.getAll = async (req, res) => {
  * @param {*} req
  * @param {*} res
  */
-exports.create = async (req, res) =>
+exports.create = async (req, res) =>{
+const countByEmail = await service.count( 'email', req.body.email)
+        .then((count) => { return count; })
+        .catch(() => { return null; })
+
+    if (countByEmail && countByEmail != 0) {
+        res.status(500).send({ status: 500, error: {name: 'E-mail already exists.'}})
+        return;
+    }
   service
     .create(req.body)
     .then(async (doc) => response.successWithData(res, new userTransformer(doc)))
     .catch((err) => catchError(res, err, log));
-
+  }
 /**
  *
  * @param {*} req
@@ -46,6 +54,14 @@ exports.show = async (req, res) =>
  * @param {*} res
  */
 exports.edit = async (req, res) => {
+  const findByEmail = await service.find( 'email', req.body.email)
+        .then((doc) => { return doc; })
+        .catch(() => { return null; })
+
+    if ((findByEmail != null ) && (findByEmail ? findByEmail.id  != parseInt(req.params.id) : null)) {
+        res.status(500).send({ status: 500, error: {name: 'E-mail already exists.'}})
+        return;
+    }
   service
     .update(req.params.id, req.body)
     .then((doc) => response.successWithBoolean(res, doc))

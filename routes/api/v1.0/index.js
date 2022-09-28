@@ -7,6 +7,8 @@ router.use('/auth', require('./routers/auth/auth.router'));
 
 /**      Settings route         */
 router.use('/users', require('./routers/setting/user.router'));
+router.use('/roles', require('./routers/setting/role.router'));
+router.use('/policies', require('./routers/setting/policy.router'));
 /**      End settings route    */
 
 /**      categories route         */

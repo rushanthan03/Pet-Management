@@ -22,7 +22,16 @@ exports.getAll = (page, itemPerPage, query, status) => new Promise(async(resolve
     var statusFilter = status ? { is_active: statusData } : null;
     var condition = { [Sequelize.Op.and]: [queryFilter, statusFilter] };
 
-    let attributes = ['id', 'name', 'email', 'email_verified_at', 'is_active', 'created_at'];      
+    let attributes = ['id', 'name', 'email', 'email_verified_at', 'is_active', 'created_at'];  
+    include = [
+      {
+        model: Role,
+        as: 'roles',
+        through: {
+          attributes:[]
+        }
+      },
+    ]    
     let responce = await BaseService.paginate(User, page, itemPerPage, log,  condition, attributes );
     resolve(responce)
 
@@ -45,6 +54,16 @@ exports.create = (values) =>new Promise(async(resolve, reject) => {
  */
 exports.show = (model) => new Promise(async(resolve, reject) => {
   let attributes = ['id', 'name', 'email', 'email_verified_at', 'is_active', 'created_at'];
+  let include = [
+    {
+      model: Role,
+      as: 'roles',
+      attributes: ['id', 'name', 'description', 'created_at', 'is_active'],
+      through: {
+        attributes: [],
+      }
+    },
+  ]
   let responce = await BaseService.show(User, model, log, attributes);
   resolve(responce)
 });

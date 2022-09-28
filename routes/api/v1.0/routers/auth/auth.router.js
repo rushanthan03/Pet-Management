@@ -12,5 +12,9 @@ const {
 
 router.post('/login', validateBody(login), authController.authenticate);
 router.get('/user', validateToken(), authController.user);
+router.get('/changesPassword', validateToken(), authController.changesPassword);
+router.get('/changesTempPassword', validateToken(), authController.changesTempPassword);
+router.get('/forgetPassword', validateToken(), authController.forgetPassword);
+
 
 module.exports = router;

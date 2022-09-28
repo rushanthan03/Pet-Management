@@ -1,4 +1,4 @@
-const { posts } = require('../../models');
+const { posts, pets, User } = require('../../models');
 
 const BaseService = require('../base.service');
 
@@ -32,8 +32,18 @@ exports.getAll = (page, itemPerPage, query, status) =>
       'post_type',
       "user_id",
       "pets_id",
-      "comments_id"
 
+    ];
+    include = [
+      {
+        model: User,
+        as: "users",
+        attributes: ["id", "name", "email"],
+      },
+      {
+        model: pets,
+        as: "pets",
+      },
     ];
     let responce = await BaseService.paginate(
       posts,
@@ -41,7 +51,8 @@ exports.getAll = (page, itemPerPage, query, status) =>
       itemPerPage,
       log,
       condition,
-      attributes
+      attributes,
+      include
     );
     resolve(responce);
   });
@@ -70,10 +81,20 @@ exports.show = (model) =>
       'post_type',
       "user_id",
       "pets_id",
-      "comments_id"
 
     ];
-    let responce = await BaseService.show(posts, model, log, attributes);
+    include = [
+      {
+        model: User,
+        as: "users",
+        attributes: ["id", "name", "email"],
+      },
+      {
+        model: pets,
+        as: "pets",
+      },
+    ];
+    let responce = await BaseService.show(posts, model, log, attributes,include);
     resolve(responce);
   });
 
