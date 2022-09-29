@@ -1,4 +1,4 @@
-const { User } = require('../../models')
+const { User, Role } = require('../../models')
 
 const BaseService = require('../base.service')
 
@@ -112,3 +112,13 @@ exports.search = (query, except, status) => new Promise( async(resolve, reject) 
     let values = await BaseService.search(User, log, condition, attributes);
     resolve(values)
 });
+
+/**
+ * 
+ * @param {*} field 
+ * @param {*} value 
+ */
+ exports.count = (field, value) => new Promise(async (resolve, reject) => {
+  let values = await BaseService.count(User, field, value, log);
+  resolve(values)
+})
