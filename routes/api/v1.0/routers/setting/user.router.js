@@ -14,15 +14,13 @@ const {
 
 router.get('/search', validateToken(), userController.search);
 
-router
-  .route('/')
-  .get(validateToken(), userController.getAll)
-  .post(validateBodyWithToken(createRequest), userController.create);
-
-router
-  .route('/:id')
-  .get(validateToken(), userController.show)
-  .patch(validateBodyWithToken(updateRequest), userController.edit)
-  .delete(validateToken(), userController.delete);
+router.route('/')
+    .get(validateToken(), validatePermission('User Index'), userController.getAll)
+    .post(validateBodyWithToken(createRequest), validatePermission('User Create'), userController.create);
+    
+router.route('/:id')
+    .get(validateToken(), validatePermission('User Show'), userController.show)
+    .patch(validateBodyWithToken(updateRequest), validatePermission('User Edit'), userController.edit)
+    .delete(validateToken(), validatePermission('User Delete'), userController.delete);
 
 module.exports = router;

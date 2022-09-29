@@ -16,13 +16,13 @@ router.get('/search', validateToken(), categoriesController.search);
 
 router
   .route('/')
-  .get(validateToken(), categoriesController.getAll)
-  .post(validateBodyWithToken(createRequest), categoriesController.create);
+  .get(validateToken(), validatePermission('Categories  Index'),  categoriesController.getAll)
+  .post(validateBodyWithToken(createRequest), validatePermission('Categories  Create'), categoriesController.create);
 
 router
   .route('/:id')
-  .get(validateToken(), categoriesController.show)
-  .patch(validateBodyWithToken(updateRequest), categoriesController.edit)
-  .delete(validateToken(), categoriesController.delete);
+  .get(validateToken(), validatePermission('Categories  Show'), categoriesController.show)
+  .patch(validateBodyWithToken(updateRequest), validatePermission('Categories  Edit'),  categoriesController.edit)
+  .delete(validateToken(), validatePermission('Categories  Delete'),  categoriesController.delete);
 
 module.exports = router;

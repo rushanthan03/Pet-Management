@@ -17,13 +17,13 @@ router.post('/:id/image-upload',validateToken(), postsController.imageUpload);
 
 router
   .route('/')
-  .get(validateToken(), postsController.getAll)
-  .post(validateBodyWithToken(createRequest), postsController.create);
+  .get(validateToken(), validatePermission('Posts   Index'),  postsController.getAll)
+  .post(validateBodyWithToken(createRequest), validatePermission('Posts   Create'), postsController.create);
 
 router
   .route('/:id')
-  .get(validateToken(), postsController.show)
-  .patch(validateBodyWithToken(updateRequest), postsController.edit)
-  .delete(validateToken(), postsController.delete);
+  .get(validateToken(), validatePermission('Posts   Show'), postsController.show)
+  .patch(validateBodyWithToken(updateRequest), validatePermission('Posts   Edit'),  postsController.edit)
+  .delete(validateToken(), validatePermission('Posts   Delete'),  postsController.delete);
 
 module.exports = router;

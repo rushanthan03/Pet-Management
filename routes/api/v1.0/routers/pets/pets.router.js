@@ -16,15 +16,15 @@ router.get("/search", validateToken(), petsController.search);
 
 router
   .route("/")
-  .get(validateToken(), petsController.getAll)
-  .post(validateBodyWithToken(createRequest), petsController.create);
+  .get(validateToken(), validatePermission('Pets  Index'),  petsController.getAll)
+  .post(validateBodyWithToken(createRequest), validatePermission('Pets  Create'), petsController.create);
 
 router.post('/:id/image-upload',validateToken(), petsController.imageUpload); 
 
 router
   .route("/:id")
-  .get(validateToken(), petsController.show)
-  .patch(validateBodyWithToken(updateRequest), petsController.edit)
-  .delete(validateToken(), petsController.delete);
+  .get(validateToken(), validatePermission('Pets  Show'), petsController.show)
+  .patch(validateBodyWithToken(updateRequest), validatePermission('Pets  Edit'),  petsController.edit)
+  .delete(validateToken(), validatePermission('Pets  Delete'),  petsController.delete);
 
 module.exports = router;
