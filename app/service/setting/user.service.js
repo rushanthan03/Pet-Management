@@ -42,10 +42,13 @@ exports.getAll = (page, itemPerPage, query, status) => new Promise(async(resolve
  * 
  * @param {*} values 
  */
-exports.create = (values) =>new Promise(async(resolve, reject) => {
+ exports.create = (values) =>new Promise(async(resolve, reject) => {
   values.password = bcrypt.hashSync(values.password, 8)
-  let responce = await BaseService.create(User, values, log);
-  resolve(responce)
+  User.create(values).then(async doc => {
+    await doc.addRole(values.roles)
+    resolve(doc)
+  })
+  .catch((err) => { log.error(err); reject(err)});
 });
 
 /**
@@ -74,11 +77,16 @@ exports.show = (model) => new Promise(async(resolve, reject) => {
  * @param {Object} values
  * @returns{Object}
  */
-exports.update = (id, values) => new Promise(async(resolve, reject) => {
-    if (!id) reject(new Error(`id can't be empty`));
-    values.password = bcrypt.hashSync(values.password, 8)
-    let responce = await BaseService.update(User, id, values, log);
-    resolve(responce)
+ exports.update = (id, values) => new Promise(async(resolve, reject) => {
+  values.password = bcrypt.hashSync(values.password, 8)
+  if (!id) reject(new Error(`id can't be empty`));
+  User.findOne({where: {id: id}})
+  .then(async doc => {
+    await doc.update(values)
+    await doc.setRoles(values.roles)
+    resolve(true);
+  })
+  .catch((err) => { log.error(err); reject(err)});
 });
 
 /**
@@ -120,5 +128,17 @@ exports.search = (query, except, status) => new Promise( async(resolve, reject) 
  */
  exports.count = (field, value) => new Promise(async (resolve, reject) => {
   let values = await BaseService.count(User, field, value, log);
+  resolve(values)
+})
+
+
+/**
+*
+* @param field
+* @param value
+* @returns {Promise<unknown>}
+*/
+exports.find = (field, value) => new Promise(async (resolve, reject) => {
+  let values = await BaseService.find(User, field, value, log);
   resolve(values)
 })

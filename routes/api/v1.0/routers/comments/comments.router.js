@@ -18,13 +18,13 @@ router.get('/search', validateToken(), commentsController.search);
 
 router
   .route('/')
-  .get(validateToken(), validatePermission('Comments   Index'), commentsController.getAll)
-  .post(validateBodyWithToken(createRequest), validatePermission('Comments   Create'), commentsController.create);
+  .get(validateToken(), validatePermission('Comments Index'), commentsController.getAll)
+  .post(validateBodyWithToken(createRequest), validatePermission('Comments Create'), commentsController.create);
 
 router
   .route('/:id')
-  .get(validateToken(), validatePermission('Comments   Show'), commentsController.show)
-  .patch(validateBodyWithToken(updateRequest), validatePermission('Comments   Edit'), commentsController.edit)
-  .delete(validateToken(), validatePermission('Comments   Delete'), commentsController.delete);
+  .get(validateToken(), validatePermission('Comments Show'), commentsController.show)
+  .patch(validateBodyWithToken(updateRequest), validatePermission('Comments Edit'), commentsController.edit)
+  .delete(validateToken(), validatePermission('Comments Delete'), commentsController.delete);
 
 module.exports = router;

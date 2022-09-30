@@ -32,6 +32,7 @@ module.exports = (sequelize, DataTypes) => {
       through: "user_roles",
       as: "roles",
     });
+
   };
 
   return User;

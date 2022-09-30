@@ -19,13 +19,13 @@ router.post('/:id/image-upload',validateToken(), postsController.imageUpload);
 
 router
   .route('/')
-  .get(validateToken(), validatePermission('Posts   Index'),  postsController.getAll)
-  .post(validateBodyWithToken(createRequest), validatePermission('Posts   Create'), postsController.create);
+  .get(validateToken(), validatePermission('Posts Index'),  postsController.getAll)
+  .post(validateBodyWithToken(createRequest), validatePermission('Posts Create'), postsController.create);
 
 router
   .route('/:id')
-  .get(validateToken(), validatePermission('Posts   Show'), postsController.show)
-  .patch(validateBodyWithToken(updateRequest), validatePermission('Posts   Edit'),  postsController.edit)
-  .delete(validateToken(), validatePermission('Posts   Delete'),  postsController.delete);
+  .get(validateToken(), validatePermission('Posts Show'), postsController.show)
+  .patch(validateBodyWithToken(updateRequest), validatePermission('Posts Edit'),  postsController.edit)
+  .delete(validateToken(), validatePermission('Posts Delete'),  postsController.delete);
 
 module.exports = router;

@@ -19,13 +19,13 @@ router.post('/:id/image-upload',validateToken(), resoursesController.imageUpload
 
 router
   .route('/')
-  .get(validateToken(), validatePermission('Resourses  Index'),  resoursesController.getAll)
-  .post(validateBodyWithToken(createRequest), validatePermission('Resourses  Create'), resoursesController.create);
+  .get(validateToken(), validatePermission('Resourses Index'),  resoursesController.getAll)
+  .post(validateBodyWithToken(createRequest), validatePermission('Resourses Create'), resoursesController.create);
 
 router
   .route('/:id')
-  .get(validateToken(), validatePermission('Resourses  Show'), resoursesController.show)
-  .patch(validateBodyWithToken(updateRequest), validatePermission('Resourses  Edit'),  resoursesController.edit)
-  .delete(validateToken(), validatePermission('Resourses  Delete'),  resoursesController.delete);
+  .get(validateToken(), validatePermission('Resourses Show'), resoursesController.show)
+  .patch(validateBodyWithToken(updateRequest), validatePermission('Resourses Edit'),  resoursesController.edit)
+  .delete(validateToken(), validatePermission('Resourses Delete'),  resoursesController.delete);
 
 module.exports = router;
